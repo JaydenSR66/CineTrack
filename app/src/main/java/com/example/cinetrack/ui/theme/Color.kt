@@ -10,6 +10,7 @@ val LightSurface = Color(0xFFFFFFFF)
 val LightOnPrimary = Color(0xFFFFFFFF)
 val LightOnBackground = Color(0xFF1B1B1B)
 val LightOnSurface = Color(0xFF1B1B1B)
+val LightTopBar = Color(0xFF4A0000)
 
 // Dark Theme Colours
 val DarkPrimary = Color(0xFFE50914)
@@ -19,3 +20,4 @@ val DarkSurface= Color(0xFF1E1E1E)
 val DarkOnPrimary = Color(0xFFFFFFFF)
 val DarkOnBackground = Color(0xFFFFFFFF)
 val DarkOnSurface = Color(0xFFE0E0E0)
+val DarkTopBar = Color(0xFF4A0000)
