@@ -12,54 +12,39 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.cinetrack.services.Screen
 import com.example.cinetrack.services.TmdbApiService
 import com.example.cinetrack.ui.theme.CineTrackTheme
+import com.example.cinetrack.views.HomeScreen
 import com.google.gson.internal.GsonBuildConfig
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        lifecycleScope.launch{
-            try{
-                val response = TmdbApiService.api.getPopularMovies(apiKey = BuildConfig.TMDB_API_KEY)
-                Log.d("TMDB TEST", "Success! First movie: ${response.results}")
-            }
-            catch (e: Exception){
-                Log.d("TMDB TEST", "Error! ${e.message}")
-            }
-        }
-
         enableEdgeToEdge()
-        setContent {
-            CineTrackTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+        setContent { CineTrackTheme { AppNavigation() } }
+    }
+}
+
+@Composable
+fun AppNavigation(){
+    val navController = rememberNavController()
+
+    NavHost(
+        navController = navController,
+        startDestination = Screen.Home.route
+    ){
+        composable(Screen.Home.route){
+            HomeScreen()
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CineTrackTheme {
-        Greeting("Android")
-    }
 }
