@@ -22,6 +22,7 @@ import com.example.cinetrack.services.Screen
 
 // Guide used to help: https://medium.com/@santosh_yadav321/bottom-navigation-bar-in-jetpack-compose-5b3c5f2cea9b
 
+// Data class representing a navigation item
 data class NavigationItem(
     val title: String,
     val icon: ImageVector,
@@ -48,22 +49,28 @@ fun BottomNavBar(navController: NavController) {
         mutableIntStateOf(0)
     }
 
+    // Bottom Navigation container
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.primaryContainer
     ) {
+        // Create a Navigation Item for Each Screen
         navigationItems.forEachIndexed { index, item ->
             NavigationBarItem(
                 selected = selectedNavigationIndex.intValue == index,
                 onClick = {
-                    selectedNavigationIndex.intValue == index
+                    selectedNavigationIndex.intValue = index
                     navController.navigate(item.route)
                 },
                 icon = {
-                    Icon(imageVector = item.icon, contentDescription = item.title)
+                    Icon(
+                        imageVector = item.icon,
+                        contentDescription = item.title
+                    ) // Navigation Icon Image
                 },
                 label = {
-                    Text(text = item.title)
+                    Text(text = item.title) // Navigation Text
                 },
+                // Colours for Selected and Unselected Status
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = MaterialTheme.colorScheme.surface,
                     indicatorColor = MaterialTheme.colorScheme.primary,
