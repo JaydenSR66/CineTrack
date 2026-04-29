@@ -17,7 +17,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -45,83 +44,77 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
     val isLoading by viewModel.isLoading.collectAsState()
     val error by viewModel.error.collectAsState()
 
-    Scaffold(
-        topBar = {
-            AppBar() // Top app bar
+
+    when {
+
+        // If loading is true, display loading icon and massage
+        isLoading -> {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(4.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    CircularProgressIndicator(
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = stringResource(R.string.loading),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                }
+            }
         }
-    ) { innerPadding ->
 
-        when {
-
-            // If loading is true, display loading icon and massage
-            isLoading -> {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(innerPadding),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        CircularProgressIndicator(
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Text(
-                            text = "Loading movies...",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onBackground
-                        )
-                    }
+        // If error is not null display error message
+        error != null -> {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(4.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        text = stringResource(R.string.movie_load_error),
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = stringResource(R.string.no_internet),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
                 }
             }
+        }
 
-            // If error is not null display error message
-            error != null -> {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(innerPadding),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(
-                            text = "Unable to load movies",
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.error
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                            text = "Please check your internet connection",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onBackground
-                        )
-                    }
+        // Show movie list is successful, display movie list
+        else -> {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(4.dp),
+                contentPadding = PaddingValues(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                item {
+                    Text(
+                        text = stringResource(R.string.popular_movies),
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    )
                 }
-            }
-
-            // Show movie list is successful, display movie list
-            else -> {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(innerPadding),
-                    contentPadding = PaddingValues(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    item {
-                        Text(
-                            text = stringResource(R.string.popular_movies),
-                            style = MaterialTheme.typography.headlineMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onBackground,
-                            modifier = Modifier.padding(bottom = 8.dp)
-                        )
-                    }
-                    // Display each movie item
-                    items(movies) { movie ->
-                        MovieCard(movie = movie)
-                    }
+                // Display each movie item
+                items(movies) { movie ->
+                    MovieCard(movie = movie)
                 }
             }
         }
