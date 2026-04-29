@@ -35,15 +35,12 @@ private val LightColorScheme = lightColorScheme(
 fun CineTrackTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = false,
-    content: @Composable () -> Unit
+    dynamicColor: Boolean = false, content: @Composable () -> Unit
 ) {
     val colourScheme = if (darkTheme) DarkColorScheme else LightColorScheme
 
 
     MaterialTheme(
-        colorScheme = colourScheme,
-        typography = Typography,
-        content = content
+        colorScheme = colourScheme, typography = Typography, content = content
     )
 }
