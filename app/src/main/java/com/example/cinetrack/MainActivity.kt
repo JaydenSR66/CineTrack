@@ -1,65 +1,71 @@
 package com.example.cinetrack
 
-import android.os.Build
-import com.example.cinetrack.BuildConfig
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.lifecycleScope
-import com.example.cinetrack.services.TmdbApiService
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.createGraph
+import com.example.cinetrack.services.Screen
 import com.example.cinetrack.ui.theme.CineTrackTheme
-import com.google.gson.internal.GsonBuildConfig
-import kotlinx.coroutines.launch
+import com.example.cinetrack.views.AppBar
+import com.example.cinetrack.views.BottomNavBar
+import com.example.cinetrack.views.HomeScreen
+import com.example.cinetrack.views.SearchScreen
+import com.example.cinetrack.views.WatchListScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        lifecycleScope.launch{
-            try{
-                val response = TmdbApiService.api.getPopularMovies(apiKey = BuildConfig.TMDB_API_KEY)
-                Log.d("TMDB TEST", "Success! First movie: ${response.results}")
-            }
-            catch (e: Exception){
-                Log.d("TMDB TEST", "Error! ${e.message}")
-            }
-        }
-
         enableEdgeToEdge()
-        setContent {
-            CineTrackTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
-        }
+        setContent { CineTrackTheme { MainScreen() } }
     }
 }
 
+/*
+Handles the navigation and start destination
+ */
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun MainScreen() {
+    val navController = rememberNavController()
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CineTrackTheme {
-        Greeting("Android")
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = { AppBar() },
+        bottomBar = { BottomNavBar(navController) }) { innerPadding ->
+
+        val graph = navController.createGraph(startDestination = Screen.Home.route) {
+            composable(route = Screen.Home.route) {
+                HomeScreen()
+            }
+            composable(route = Screen.Search.route) {
+                Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    SearchScreen()
+                }
+            }
+            composable(route = Screen.WatchList.route) {
+                Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    WatchListScreen()
+                }
+            }
+            composable(route = Screen.Settings.route) {
+                Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+
+                }
+            }
+        }
+
+        NavHost(
+            navController = navController, graph = graph, modifier = Modifier.padding(innerPadding)
+        )
     }
 }
