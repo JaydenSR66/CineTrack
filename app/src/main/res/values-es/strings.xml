@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">CineTrack</string>
+    <string name="popular_movies">Películas populares</string>
+    <string name="error">¡Error!</string>
+    <string name="loading">Cargando...</string>
+    <string name="home">Inicio</string>
+    <string name="search">Buscar</string>
+    <string name="watchlist">Lista de seguimiento</string>
+    <string name="settings">Configuración</string>
+    <string name="movie_load_error">No se pudieron cargar las películas</string>
+    <string name="no_internet">Por favor, verifica tu conexión a internet</string>
+    <string name="search_text">Buscar películas</string>
+    <string name="no_movies">No se encontraron películas</string>
+    <string name="add_watchlist">Añadir a la lista de seguimiento</string>
+    <string name="added_watchlist">Añadido a tu lista de seguimiento</string>
+    <string name="watched">Vistas</string>
+    <string name="add_watched">Marcar como vista</string>
+    <string name="my_watchlist">Mi lista de seguimiento</string>
+    <string name="my_watched">Mis películas vistas</string>
+    <string name="empty_watchlist">Tu lista de seguimiento está vacía. Añade películas desde Inicio o Buscar</string>
+    <string name="empty_watched">Tu lista de vistas está vacía. Añade películas desde Inicio o Buscar</string>
+    <string name="on_watchlist">En tu lista de seguimiento</string>
+    <string name="appearance">Apariencia</string>
+    <string name="dark_mode">Modo oscuro</string>
+    <string name="enabled">Actualmente activado</string>
+    <string name="disabled">Actualmente desactivado</string>
+    <string name="data_management">Gestión de datos</string>
+    <string name="clear_watchlist">Borrar lista de seguimiento</string>
+    <string name="clear_watched">Borrar vistas</string>
+    <string name="language">Idioma</string>
+    <string name="select_language">Seleccionar idioma</string>
+</resources>

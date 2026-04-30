@@ -32,46 +32,72 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        // Used to load user saved settings for dark mode or languages
         val settingsService = SettingsService(this)
+
+        // Apply the saved language before the ui is displayed
+        applyLanguage(settingsService.getLanguage())
+
         setContent {
             var isDarkMode by remember { mutableStateOf(settingsService.getDarkMode()) }
 
             CineTrackTheme(darkTheme = isDarkMode) {
-                MainScreen(onThemeChange = { isDarkMode = it })
+                MainScreen(
+                    onThemeChange = { isDarkMode = it },
+                    onLanguageChange = { languageCode ->
+                        applyLanguage(languageCode)
+                        recreate()
+                    }
+                )
             }
         }
     }
-}
 
-@Composable
-fun MainScreen(onThemeChange: (Boolean) -> Unit) {
-    val navController = rememberNavController()
+    @Composable
+    fun MainScreen(onThemeChange: (Boolean) -> Unit, onLanguageChange: (String) -> Unit) {
+        val navController = rememberNavController()
 
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        topBar = { AppBar() },
-        bottomBar = { BottomNavBar(navController) }
-    ) { innerPadding ->
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            topBar = { AppBar() },
+            bottomBar = { BottomNavBar(navController) }
+        ) { innerPadding ->
 
-        val graph = navController.createGraph(startDestination = Screen.Home.route) {
-            composable(route = Screen.Home.route) {
-                HomeScreen()
+            val graph = navController.createGraph(startDestination = Screen.Home.route) {
+                composable(route = Screen.Home.route) {
+                    HomeScreen()
+                }
+                composable(route = Screen.Search.route) {
+                    SearchScreen()
+                }
+                composable(route = Screen.WatchList.route) {
+                    WatchListScreen()
+                }
+                composable(route = Screen.Settings.route) {
+                    SettingsScreen(
+                        onThemeChange = onThemeChange,
+                        onLanguageChange = onLanguageChange
+                    )
+                }
             }
-            composable(route = Screen.Search.route) {
-                SearchScreen()
-            }
-            composable(route = Screen.WatchList.route) {
-                WatchListScreen()
-            }
-            composable(route = Screen.Settings.route) {
-                SettingsScreen(onThemeChange = onThemeChange)
-            }
+
+            NavHost(
+                navController = navController,
+                graph = graph,
+                modifier = Modifier.padding(innerPadding)
+            )
         }
+    }
 
-        NavHost(
-            navController = navController,
-            graph = graph,
-            modifier = Modifier.padding(innerPadding)
-        )
+    /*
+    Applies the selected language to the app
+     */
+    private fun applyLanguage(languageCode: String) {
+        val locale = java.util.Locale(languageCode)
+        java.util.Locale.setDefault(locale)
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 }
+
