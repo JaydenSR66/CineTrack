@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">CineTrack</string>
+    <string name="popular_movies">Films populaires</string>
+    <string name="error">Erreur !</string>
+    <string name="loading">Chargement...</string>
+    <string name="home">Accueil</string>
+    <string name="search">Rechercher</string>
+    <string name="watchlist">Liste de suivi</string>
+    <string name="settings">Paramètres</string>
+    <string name="movie_load_error">Impossible de charger les films</string>
+    <string name="no_internet">Veuillez vérifier votre connexion Internet</string>
+    <string name="search_text">Rechercher des films</string>
+    <string name="no_movies">Aucun film trouvé</string>
+    <string name="add_watchlist">Ajouter à la liste de suivi</string>
+    <string name="added_watchlist">Ajouté à votre liste de suivi</string>
+    <string name="watched">Vus</string>
+    <string name="add_watched">Marquer comme vu</string>
+    <string name="my_watchlist">Ma liste de suivi</string>
+    <string name="my_watched">Mes films vus</string>
+    <string name="empty_watchlist">Votre liste de suivi est vide ! Ajoutez des films depuis Accueil ou Rechercher</string>
+    <string name="empty_watched">Votre liste de films vus est vide ! Ajoutez des films depuis Accueil ou Rechercher</string>
+    <string name="on_watchlist">Dans votre liste de suivi</string>
+    <string name="appearance">Apparence</string>
+    <string name="dark_mode">Mode sombre</string>
+    <string name="enabled">Actuellement activé</string>
+    <string name="disabled">Actuellement désactivé</string>
+    <string name="data_management">Gestion des données</string>
+    <string name="clear_watchlist">Effacer la liste de suivi</string>
+    <string name="clear_watched">Effacer les films vus</string>
+    <string name="language">Langue</string>
+    <string name="select_language">Choisir la langue</string>
+</resources>

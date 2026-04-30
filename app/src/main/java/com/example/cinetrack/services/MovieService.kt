@@ -68,6 +68,16 @@ class MovieService(context: Context) {
         savedWatched(current)
     }
 
+    // Clears the entire watchlist
+    fun clearWatchList() {
+        prefs.edit { remove("watchList") }
+    }
+
+    // Clears the entire watched list
+    fun clearWatched() {
+        prefs.edit { remove("watched") }
+    }
+
     fun isOnWatchList(movieId: Int) = getWatchList().any { it.id == movieId }
     fun isWatched(movieId: Int) = getWatched().any { it.id == movieId }
 }

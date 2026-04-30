@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">CineTrack</string>
+    <string name="popular_movies">Популярные фильмы</string>
+    <string name="error">Ошибка!</string>
+    <string name="loading">Загрузка...</string>
+    <string name="home">Главная</string>
+    <string name="search">Поиск</string>
+    <string name="watchlist">Список для просмотра</string>
+    <string name="settings">Настройки</string>
+    <string name="movie_load_error">Не удалось загрузить фильмы</string>
+    <string name="no_internet">Пожалуйста, проверьте подключение к интернету</string>
+    <string name="search_text">Поиск фильмов</string>
+    <string name="no_movies">Фильмы не найдены</string>
+    <string name="add_watchlist">Добавить в список</string>
+    <string name="added_watchlist">Добавлено в ваш список</string>
+    <string name="watched">Просмотрено</string>
+    <string name="add_watched">Отметить как просмотренное</string>
+    <string name="my_watchlist">Мой список для просмотра</string>
+    <string name="my_watched">Мои просмотренные фильмы</string>
+    <string name="empty_watchlist">Ваш список пуст! Добавьте фильмы из «Главная» или «Поиск»</string>
+    <string name="empty_watched">Ваш список просмотренных пуст! Добавьте фильмы из «Главная» или «Поиск»</string>
+    <string name="on_watchlist">В вашем списке</string>
+    <string name="appearance">Внешний вид</string>
+    <string name="dark_mode">Тёмный режим</string>
+    <string name="enabled">Включено</string>
+    <string name="disabled">Отключено</string>
+    <string name="data_management">Управление данными</string>
+    <string name="clear_watchlist">Очистить список</string>
+    <string name="clear_watched">Очистить просмотренные</string>
+    <string name="language">Язык</string>
+    <string name="select_language">Выбрать язык</string>
+</resources>
