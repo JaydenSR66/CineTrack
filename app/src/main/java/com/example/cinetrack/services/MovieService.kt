@@ -70,7 +70,7 @@ class MovieService(context: Context) {
 
     // Clears the entire watchlist
     fun clearWatchList() {
-        prefs.edit { remove("watchlist") }
+        prefs.edit { remove("watchList") }
     }
 
     // Clears the entire watched list

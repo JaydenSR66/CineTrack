@@ -3,9 +3,13 @@ package com.example.cinetrack.views
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
@@ -79,6 +83,44 @@ fun SettingsScreen(viewModel: SettingsViewModel = viewModel(), onThemeChange: (B
                         checkedTrackColor = MaterialTheme.colorScheme.primary
                     )
                 )
+            }
+        }
+
+        // Data Management Section
+        item {
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = stringResource(R.string.data_management),
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+        }
+        item {
+            HorizontalDivider(color = MaterialTheme.colorScheme.onBackground)
+        }
+
+        // Clear watchlist button
+        item {
+            Button(
+                onClick = { viewModel.clearWatchlist() },
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary
+                )
+            ) {
+                Text(stringResource(R.string.clear_watchlist))
+            }
+        }
+        // Clear watched list button
+        item {
+            Button(
+                onClick = { viewModel.clearWatched() },
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary
+                )
+            ) {
+                Text(stringResource(R.string.clear_watched))
             }
         }
     }

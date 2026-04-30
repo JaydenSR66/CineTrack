@@ -24,4 +24,7 @@
     <string name="dark_mode">Dark Mode</string>
     <string name="enabled">Currently Enabled</string>
     <string name="disabled">Currently Disabled</string>
+    <string name="data_management">Data Management</string>
+    <string name="clear_watchlist">Clear Watchlist</string>
+    <string name="clear_watched">Clear Watched</string>
 </resources>
