@@ -20,6 +20,8 @@ import com.example.cinetrack.ui.theme.CineTrackTheme
 import com.example.cinetrack.views.AppBar
 import com.example.cinetrack.views.BottomNavBar
 import com.example.cinetrack.views.HomeScreen
+import com.example.cinetrack.views.SearchScreen
+import com.example.cinetrack.views.WatchListScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,12 +49,12 @@ fun MainScreen() {
             }
             composable(route = Screen.Search.route) {
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-
+                    SearchScreen()
                 }
             }
             composable(route = Screen.WatchList.route) {
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-
+                    WatchListScreen()
                 }
             }
             composable(route = Screen.Settings.route) {

@@ -1,5 +1,6 @@
 package com.example.cinetrack.services
 
+import com.example.cinetrack.BuildConfig
 import com.example.cinetrack.models.MovieResponse
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -28,10 +29,27 @@ object TmdbApiService {
     Get request to TMDB for returning list of popular movies
      */
     interface ApiInterface {
-        @GET("movie/popular")
 
+        // Gets the current popular movies
+        @GET("movie/popular")
         suspend fun getPopularMovies(
             @Query("api_key") apiKey: String,
+            @Query("page") page: Int = 1
+        ): MovieResponse
+
+        // Gets all movies sorted from A-Z
+        @GET("discover/movie")
+        suspend fun getAllMovies(
+            @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
+            @Query("sort_by") sortBy: String = "primary_release_date.desc",
+            @Query("page") page: Int = 1
+        ): MovieResponse
+
+        // Searches movies by query
+        @GET("search/movie")
+        suspend fun searchMovies(
+            @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
+            @Query("query") query: String,
             @Query("page") page: Int = 1
         ): MovieResponse
     }
