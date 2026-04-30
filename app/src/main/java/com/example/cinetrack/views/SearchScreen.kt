@@ -69,117 +69,119 @@ fun SearchScreen(viewModel: SearchViewModel = viewModel()) {
             viewModel.GetMovies()
         }
     }
-
     Column(modifier = Modifier.fillMaxSize()) {
-        // Search box at the top
-        OutlinedTextField(
-            value = query,
+        NetworkBanner()
 
-            // Update query search on every change
-            onValueChange = {
-                query = it
-                viewModel.searchMovies(it)
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 18.dp, vertical = 14.dp),
-            placeholder = { Text(stringResource(R.string.search_text)) }, // Place holder text
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = stringResource(R.string.search_text)
-                )
-            },
-            singleLine = true,
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = MaterialTheme.colorScheme.primary,
-                unfocusedBorderColor = MaterialTheme.colorScheme.onSurface
-            )
-        )
+        Column(modifier = Modifier.fillMaxSize()) {
+            // Search box at the top
+            OutlinedTextField(
+                value = query,
 
-        when {
-            // If loading is true, display loading icon and massage
-            isLoading -> {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(4.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        CircularProgressIndicator(
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Text(
-                            text = stringResource(R.string.loading),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onBackground
-                        )
-                    }
-                }
-            }
-
-            // If error is not null display error message
-            error != null -> {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(4.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(
-                            text = stringResource(R.string.movie_load_error),
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.error
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                            text = stringResource(R.string.no_internet),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onBackground
-                        )
-                    }
-                }
-            }
-
-            // If no movie is found for that query
-            searchResults.isEmpty() && query.isNotEmpty() -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "${stringResource(R.string.no_movies)} for ${query}",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onBackground
+                // Update query search on every change
+                onValueChange = {
+                    query = it
+                    viewModel.searchMovies(it)
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 18.dp, vertical = 14.dp),
+                placeholder = { Text(stringResource(R.string.search_text)) }, // Place holder text
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = stringResource(R.string.search_text)
                     )
-                }
-            }
+                },
+                singleLine = true,
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = MaterialTheme.colorScheme.primary,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.onSurface
+                )
+            )
 
-            else -> {
-                LazyColumn(
-                    state = listState,
-                    contentPadding = PaddingValues(14.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    // Display each movie item
-                    items(searchResults) { movie ->
-                        MovieCard(movie = movie)
+            when {
+                // If loading is true, display loading icon and massage
+                isLoading -> {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(4.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            CircularProgressIndicator(
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Text(
+                                text = stringResource(R.string.loading),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onBackground
+                            )
+                        }
                     }
+                }
 
-                    // Display the loading indicator at the bottom when loading more
-                    if (isLoadingMore) {
-                        item {
-                            Box(
-                                modifier = Modifier.fillMaxWidth(),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                CircularProgressIndicator(
-                                    color = MaterialTheme.colorScheme.primary
-                                )
+                // If error is not null display error message
+                error != null -> {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(4.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(
+                                text = stringResource(R.string.movie_load_error),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.error
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text(
+                                text = stringResource(R.string.no_internet),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onBackground
+                            )
+                        }
+                    }
+                }
+
+                // If no movie is found for that query
+                searchResults.isEmpty() && query.isNotEmpty() -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "${stringResource(R.string.no_movies)} for ${query}",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onBackground
+                        )
+                    }
+                }
+
+                else -> {
+                    LazyColumn(
+                        state = listState,
+                        contentPadding = PaddingValues(14.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        // Display each movie item
+                        items(searchResults) { movie ->
+                            MovieCard(movie = movie)
+                        }
+
+                        // Display the loading indicator at the bottom when loading more
+                        if (isLoadingMore) {
+                            item {
+                                Box(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    CircularProgressIndicator(
+                                        color = MaterialTheme.colorScheme.primary
+                                    )
+                                }
                             }
                         }
                     }
