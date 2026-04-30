@@ -20,4 +20,8 @@
     <string name="empty_watchlist">Your Watchlist is Empty! Add Movies from Home or Search</string>
     <string name="empty_watched">Your Watched List is Empty! Add Movies from Home or Search</string>
     <string name="on_watchlist">On Your Watch List</string>
+    <string name="appearance">Appearance</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="enabled">Currently Enabled</string>
+    <string name="disabled">Currently Disabled</string>
 </resources>
