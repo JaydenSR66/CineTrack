@@ -18,6 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.createGraph
 import com.example.cinetrack.services.Screen
+import com.example.cinetrack.services.SettingsService
 import com.example.cinetrack.ui.theme.CineTrackTheme
 import com.example.cinetrack.views.AppBar
 import com.example.cinetrack.views.BottomNavBar
@@ -30,8 +31,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val settingsService = SettingsService(this)
         setContent {
-            var isDarkMode by remember { mutableStateOf(false) }
+            var isDarkMode by remember { mutableStateOf(settingsService.getDarkMode()) }
 
             CineTrackTheme(darkTheme = isDarkMode) {
                 MainScreen(onThemeChange = { isDarkMode = it })
