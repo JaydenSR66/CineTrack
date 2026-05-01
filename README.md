@@ -20,7 +20,7 @@ A native Android film tracking application built with Kotlin and Jetpack Compose
 
 ## Video Demo
 
-> ![Video Demo](Demo/CineTrack_Demo.mp4)
+https://github.com/user-attachments/assets/443a1678-2f84-47f6-883e-73285a73f144
 
 ---
 
