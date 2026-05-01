@@ -181,4 +181,4 @@ User data is stored locally on the device using **SharedPreferences**:
 ## Author
 
 **Jayden Robertson** — Student Number: 2407659  
-Abertay University | CMP309 Software Development for Mobile Devices | 2025/26
+Abertay University | CMP309 Software Development for Mobile Devices
